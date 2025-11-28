@@ -7,7 +7,7 @@ class Crm {
         this.description = {
             displayName: 'CRM',
             name: 'crm',
-            icon: 'file:crm.svg',
+            icon: 'file:image.png',
             group: ['transform'],
             version: 1,
             description: 'Create and update leads in CRM',
@@ -42,26 +42,63 @@ class Crm {
                             action: 'Create lead and update custom fields',
                         },
                         {
-                            name: 'Update Lead Field',
+                            name: 'Disqualify Lead',
+                            value: 'disqualifyLead',
+                            description: 'Disqualify a lead and move to disqualification column',
+                            action: 'Disqualify a lead',
+                        },
+                        {
+                            name: 'Change Tenant',
+                            value: 'changeTenant',
+                            description: 'Change the tenant of a lead',
+                            action: 'Change lead tenant',
+                        },
+                        {
+                            name: 'Update Lead',
+                            value: 'updateLead',
+                            description: 'Update main fields of a lead',
+                            action: 'Update a lead',
+                        },
+                        {
+                            name: 'Update Lead Custom Field',
                             value: 'updateLeadField',
                             description: 'Update a custom field on a lead',
-                            action: 'Update a lead field',
+                            action: 'Update a lead custom field',
                         },
                     ],
                     default: 'createLead',
                 },
                 {
-                    displayName: 'Owner ID',
+                    displayName: 'Owner',
                     name: 'ownerId',
-                    type: 'string',
+                    type: 'options',
                     required: true,
                     displayOptions: {
                         show: {
                             operation: ['createLead'],
                         },
                     },
+                    typeOptions: {
+                        loadOptionsMethod: 'getOwners',
+                    },
                     default: '',
-                    description: 'The ID of the owner for this lead',
+                    description: 'The owner for this lead',
+                },
+                {
+                    displayName: 'Coluna de Entrada do Lead',
+                    name: 'columnId',
+                    type: 'options',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['createLead'],
+                        },
+                    },
+                    typeOptions: {
+                        loadOptionsMethod: 'getColumns',
+                    },
+                    default: '',
+                    description: 'The column where the lead will be created',
                 },
                 {
                     displayName: 'Company Name',
@@ -137,7 +174,7 @@ class Crm {
                     options: [
                         { name: 'Brazil', value: 'brazil' },
                         { name: 'EUA', value: 'eua' },
-                        { name: 'Other', value: 'other' },
+                        { name: 'Others', value: 'others' },
                     ],
                     default: 'brazil',
                     description: 'Nationality of the company',
@@ -215,17 +252,36 @@ class Crm {
                     description: 'The source page where the lead came from',
                 },
                 {
-                    displayName: 'Owner ID',
+                    displayName: 'Owner',
                     name: 'ownerIdCreateUpdate',
-                    type: 'string',
+                    type: 'options',
                     required: true,
                     displayOptions: {
                         show: {
                             operation: ['createAndUpdate'],
                         },
                     },
+                    typeOptions: {
+                        loadOptionsMethod: 'getOwners',
+                    },
                     default: '',
-                    description: 'The ID of the owner for this lead',
+                    description: 'The owner for this lead',
+                },
+                {
+                    displayName: 'Coluna de Entrada do Lead',
+                    name: 'columnIdCreateUpdate',
+                    type: 'options',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['createAndUpdate'],
+                        },
+                    },
+                    typeOptions: {
+                        loadOptionsMethod: 'getColumns',
+                    },
+                    default: '',
+                    description: 'The column where the lead will be created',
                 },
                 {
                     displayName: 'Company Name',
@@ -301,7 +357,7 @@ class Crm {
                     options: [
                         { name: 'Brazil', value: 'brazil' },
                         { name: 'EUA', value: 'eua' },
-                        { name: 'Other', value: 'other' },
+                        { name: 'Others', value: 'others' },
                     ],
                     default: 'brazil',
                     description: 'Nationality of the company',
@@ -1656,7 +1712,411 @@ class Crm {
                         },
                     ],
                 },
+                {
+                    displayName: 'Card ID',
+                    name: 'cardIdDisqualify',
+                    type: 'string',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['disqualifyLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'The ID of the card (lead) to disqualify',
+                },
+                {
+                    displayName: 'Coluna de Desqualificação',
+                    name: 'toColumnId',
+                    type: 'options',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['disqualifyLead'],
+                        },
+                    },
+                    typeOptions: {
+                        loadOptionsMethod: 'getColumns',
+                    },
+                    default: '',
+                    description: 'The column where the disqualified lead will be moved',
+                },
+                {
+                    displayName: 'Novo Index',
+                    name: 'newIndex',
+                    type: 'number',
+                    displayOptions: {
+                        show: {
+                            operation: ['disqualifyLead'],
+                        },
+                    },
+                    default: 0,
+                    description: 'The new index position of the card in the column',
+                },
+                {
+                    displayName: 'Ignorar Validação de Campos Obrigatórios',
+                    name: 'ignoreColumnsRequiredFieldsValidation',
+                    type: 'boolean',
+                    displayOptions: {
+                        show: {
+                            operation: ['disqualifyLead'],
+                        },
+                    },
+                    default: true,
+                    description: 'Whether to ignore required fields validation when moving to disqualification column',
+                },
+                {
+                    displayName: 'Razão da Desqualificação',
+                    name: 'reasonForLost',
+                    type: 'options',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['disqualifyLead'],
+                        },
+                    },
+                    options: [
+                        { name: 'Adolescente/Criança', value: 'Adolescente/Criança' },
+                        { name: 'Blocklist', value: 'Blocklist' },
+                        { name: 'Sem budget', value: 'Sem budget' },
+                        { name: 'Sem necessidade', value: 'Sem necessidade' },
+                        { name: 'Cliente oculto', value: 'Cliente oculto' },
+                        { name: 'Sem autoridade', value: 'Sem autoridade' },
+                        { name: 'Cliente', value: 'Cliente' },
+                        { name: 'Ex-cliente (detrator)', value: 'Ex-cliente (detrator)' },
+                        { name: 'Pessoa Física', value: 'Pessoa Física' },
+                        { name: 'Engano/Não Lembra', value: 'Engano/Não Lembra' },
+                        { name: 'Deixou de responder', value: 'Deixou de responder' },
+                        { name: 'Nunca respondeu', value: 'Nunca respondeu' },
+                        { name: 'Sem timing', value: 'Sem timing' },
+                        { name: 'Serviço fora de escopo', value: 'Serviço fora de escopo' },
+                        { name: 'Duplicado', value: 'Duplicado' },
+                        { name: 'Contatos inválidos', value: 'Contatos inválidos' },
+                        { name: 'Sem interesse', value: 'Sem interesse' },
+                        { name: 'SPAM', value: 'SPAM' },
+                        { name: 'Não ICP', value: 'Não ICP' },
+                    ],
+                    default: 'SPAM',
+                    description: 'The reason for disqualifying the lead',
+                },
+                {
+                    displayName: 'Descrição da Desqualificação',
+                    name: 'descriptionForLost',
+                    type: 'string',
+                    typeOptions: {
+                        rows: 4,
+                    },
+                    displayOptions: {
+                        show: {
+                            operation: ['disqualifyLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'Additional description for the disqualification reason',
+                },
+                {
+                    displayName: 'Card ID',
+                    name: 'cardIdChangeTenant',
+                    type: 'string',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['changeTenant'],
+                        },
+                    },
+                    default: '',
+                    description: 'The ID of the card (lead) to change tenant',
+                },
+                {
+                    displayName: 'Tenant',
+                    name: 'tenantId',
+                    type: 'options',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['changeTenant'],
+                        },
+                    },
+                    typeOptions: {
+                        loadOptionsMethod: 'getTenants',
+                    },
+                    default: '',
+                    description: 'The tenant to assign to the lead',
+                },
+                {
+                    displayName: 'Card ID',
+                    name: 'cardIdUpdate',
+                    type: 'string',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'The ID of the card (lead) to update',
+                },
+                {
+                    displayName: 'Title',
+                    name: 'titleUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'The title of the lead',
+                },
+                {
+                    displayName: 'Company Name',
+                    name: 'companyNameUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'The name of the company',
+                },
+                {
+                    displayName: 'Email',
+                    name: 'emailUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'Email address of the lead',
+                },
+                {
+                    displayName: 'Phone',
+                    name: 'phoneUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'Phone number of the lead',
+                },
+                {
+                    displayName: 'Tax ID',
+                    name: 'taxIdUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'Tax identification number',
+                },
+                {
+                    displayName: 'Owner',
+                    name: 'ownerIdUpdate',
+                    type: 'options',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    typeOptions: {
+                        loadOptionsMethod: 'getOwners',
+                    },
+                    default: '',
+                    description: 'The owner for this lead',
+                },
+                {
+                    displayName: 'Tenant',
+                    name: 'tenantIdUpdate',
+                    type: 'options',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    typeOptions: {
+                        loadOptionsMethod: 'getTenants',
+                    },
+                    default: '',
+                    description: 'The tenant for this lead',
+                },
+                {
+                    displayName: 'Channel',
+                    name: 'channelUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'The channel of the lead',
+                },
+                {
+                    displayName: 'UTM Source',
+                    name: 'utmSourceUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'UTM source parameter',
+                },
+                {
+                    displayName: 'UTM Campaign',
+                    name: 'utmCampaignUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'UTM campaign parameter',
+                },
+                {
+                    displayName: 'UTM Content',
+                    name: 'utmContentUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'UTM content parameter',
+                },
+                {
+                    displayName: 'UTM Medium',
+                    name: 'utmMediumUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'UTM medium parameter',
+                },
+                {
+                    displayName: 'UTM Term',
+                    name: 'utmTermUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'UTM term parameter',
+                },
+                {
+                    displayName: 'Source Page',
+                    name: 'sourcePageUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'The source page where the lead came from',
+                },
+                {
+                    displayName: 'Lost Reason',
+                    name: 'lostReasonUpdate',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'The reason why the lead was lost',
+                },
+                {
+                    displayName: 'Lost Description',
+                    name: 'lostDescriptionUpdate',
+                    type: 'string',
+                    typeOptions: {
+                        rows: 4,
+                    },
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLead'],
+                        },
+                    },
+                    default: '',
+                    description: 'Additional description for the lost reason',
+                },
+                {
+                    displayName: 'Card ID',
+                    name: 'cardId',
+                    type: 'string',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLeadField'],
+                        },
+                    },
+                    default: '',
+                    description: 'The ID of the card (lead) to update',
+                },
             ],
+        };
+        this.methods = {
+            loadOptions: {
+                async getOwners() {
+                    const credentials = await this.getCredentials('crmApi');
+                    const ownersJson = credentials.owners;
+                    try {
+                        const owners = JSON.parse(ownersJson);
+                        return owners.map((owner) => ({
+                            name: owner.name,
+                            value: owner.id,
+                        }));
+                    }
+                    catch (error) {
+                        throw new n8n_workflow_1.NodeOperationError(this.getNode(), `Invalid JSON in owners credential: ${error.message}`);
+                    }
+                },
+                async getColumns() {
+                    const credentials = await this.getCredentials('crmApi');
+                    const columnsJson = credentials.columns;
+                    try {
+                        const columns = JSON.parse(columnsJson);
+                        return columns.map((column) => ({
+                            name: column.name,
+                            value: column.id,
+                        }));
+                    }
+                    catch (error) {
+                        throw new n8n_workflow_1.NodeOperationError(this.getNode(), `Invalid JSON in columns credential: ${error.message}`);
+                    }
+                },
+                async getTenants() {
+                    const credentials = await this.getCredentials('crmApi');
+                    const tenantsJson = credentials.tenants;
+                    try {
+                        const tenants = JSON.parse(tenantsJson);
+                        return tenants.map((tenant) => ({
+                            name: tenant.name,
+                            value: tenant.id,
+                        }));
+                    }
+                    catch (error) {
+                        throw new n8n_workflow_1.NodeOperationError(this.getNode(), `Invalid JSON in tenants credential: ${error.message}`);
+                    }
+                },
+            },
         };
     }
     async execute() {
@@ -1672,6 +2132,7 @@ class Crm {
                 if (operation === 'createLead') {
                     const createLeadUrl = credentials.createLeadUrl;
                     const ownerId = this.getNodeParameter('ownerId', itemIndex);
+                    const columnId = this.getNodeParameter('columnId', itemIndex);
                     const companyName = this.getNodeParameter('companyName', itemIndex);
                     const title = this.getNodeParameter('title', itemIndex);
                     const email = this.getNodeParameter('email', itemIndex, '');
@@ -1711,7 +2172,7 @@ class Crm {
                         body.sourcePage = sourcePage;
                     const options = {
                         method: 'POST',
-                        url: `${apiUrl}${createLeadUrl}`,
+                        url: `${apiUrl}${createLeadUrl}/${columnId}`,
                         headers: {
                             'x-client-id': clientId,
                             'x-client-secret': clientSecret,
@@ -1727,6 +2188,7 @@ class Crm {
                     const createLeadUrl = credentials.createLeadUrl;
                     const updateLeadUrl = credentials.updateLeadUrl;
                     const ownerId = this.getNodeParameter('ownerIdCreateUpdate', itemIndex);
+                    const columnId = this.getNodeParameter('columnIdCreateUpdate', itemIndex);
                     const companyName = this.getNodeParameter('companyNameCreateUpdate', itemIndex);
                     const title = this.getNodeParameter('titleCreateUpdate', itemIndex);
                     const email = this.getNodeParameter('emailCreateUpdate', itemIndex, '');
@@ -1766,7 +2228,7 @@ class Crm {
                         createBody.sourcePage = sourcePage;
                     const createOptions = {
                         method: 'POST',
-                        url: `${apiUrl}${createLeadUrl}`,
+                        url: `${apiUrl}${createLeadUrl}/${columnId}`,
                         headers: {
                             'x-client-id': clientId,
                             'x-client-secret': clientSecret,
@@ -1865,6 +2327,72 @@ class Crm {
                         pairedItem: itemIndex,
                     });
                 }
+                else if (operation === 'updateLead') {
+                    const updateLeadMainUrl = credentials.updateLeadMainUrl;
+                    const cardId = this.getNodeParameter('cardIdUpdate', itemIndex);
+                    const title = this.getNodeParameter('titleUpdate', itemIndex, '');
+                    const companyName = this.getNodeParameter('companyNameUpdate', itemIndex, '');
+                    const email = this.getNodeParameter('emailUpdate', itemIndex, '');
+                    const phone = this.getNodeParameter('phoneUpdate', itemIndex, '');
+                    const taxId = this.getNodeParameter('taxIdUpdate', itemIndex, '');
+                    const ownerId = this.getNodeParameter('ownerIdUpdate', itemIndex, '');
+                    const tenantId = this.getNodeParameter('tenantIdUpdate', itemIndex, '');
+                    const channel = this.getNodeParameter('channelUpdate', itemIndex, '');
+                    const utmSource = this.getNodeParameter('utmSourceUpdate', itemIndex, '');
+                    const utmCampaign = this.getNodeParameter('utmCampaignUpdate', itemIndex, '');
+                    const utmContent = this.getNodeParameter('utmContentUpdate', itemIndex, '');
+                    const utmMedium = this.getNodeParameter('utmMediumUpdate', itemIndex, '');
+                    const utmTerm = this.getNodeParameter('utmTermUpdate', itemIndex, '');
+                    const sourcePage = this.getNodeParameter('sourcePageUpdate', itemIndex, '');
+                    const lostReason = this.getNodeParameter('lostReasonUpdate', itemIndex, '');
+                    const lostDescription = this.getNodeParameter('lostDescriptionUpdate', itemIndex, '');
+                    const body = {};
+                    if (title)
+                        body.title = title;
+                    if (companyName)
+                        body.companyName = companyName;
+                    if (email)
+                        body.email = email;
+                    if (phone)
+                        body.phone = phone;
+                    if (taxId)
+                        body.taxId = taxId;
+                    if (ownerId)
+                        body.ownerId = ownerId;
+                    if (tenantId)
+                        body.tenantId = tenantId;
+                    if (channel)
+                        body.channel = channel;
+                    if (utmSource)
+                        body.utmSource = utmSource;
+                    if (utmCampaign)
+                        body.utmCampaign = utmCampaign;
+                    if (utmContent)
+                        body.utmContent = utmContent;
+                    if (utmMedium)
+                        body.utmMedium = utmMedium;
+                    if (utmTerm)
+                        body.utmTerm = utmTerm;
+                    if (sourcePage)
+                        body.sourcePage = sourcePage;
+                    if (lostReason)
+                        body.lostReason = lostReason;
+                    if (lostDescription)
+                        body.lostDescription = lostDescription;
+                    const options = {
+                        method: 'PUT',
+                        url: `${apiUrl}${updateLeadMainUrl}/${cardId}`,
+                        headers: {
+                            'x-client-id': clientId,
+                            'x-client-secret': clientSecret,
+                            'Content-Type': 'application/json',
+                        },
+                        body,
+                        json: true,
+                    };
+                    const response = await this.helpers.httpRequest(options);
+                    returnData.push({ json: response, pairedItem: itemIndex });
+                }
                 else if (operation === 'updateLeadField') {
                     const updateLeadUrl = credentials.updateLeadUrl;
                     const cardId = this.getNodeParameter('cardId', itemIndex);
@@ -1949,6 +2477,56 @@ class Crm {
                         },
                         pairedItem: itemIndex,
                     });
+                }
+                else if (operation === 'disqualifyLead') {
+                    const disqualifyLeadUrl = credentials.disqualifyLeadUrl;
+                    const cardId = this.getNodeParameter('cardIdDisqualify', itemIndex);
+                    const toColumnId = this.getNodeParameter('toColumnId', itemIndex);
+                    const newIndex = this.getNodeParameter('newIndex', itemIndex);
+                    const ignoreColumnsRequiredFieldsValidation = this.getNodeParameter('ignoreColumnsRequiredFieldsValidation', itemIndex);
+                    const reasonForLost = this.getNodeParameter('reasonForLost', itemIndex);
+                    const descriptionForLost = this.getNodeParameter('descriptionForLost', itemIndex, '');
+                    const body = {
+                        toColumnId,
+                        newIndex,
+                        ignoreColumnsRequiredFieldsValidation,
+                        reasonForLost,
+                        descriptionForLost,
+                    };
+                    const options = {
+                        method: 'POST',
+                        url: `${apiUrl}${disqualifyLeadUrl}/${cardId}`,
+                        headers: {
+                            'x-client-id': clientId,
+                            'x-client-secret': clientSecret,
+                            'Content-Type': 'application/json',
+                        },
+                        body,
+                        json: true,
+                    };
+                    const response = await this.helpers.httpRequest(options);
+                    returnData.push({ json: response, pairedItem: itemIndex });
+                }
+                else if (operation === 'changeTenant') {
+                    const changeTenantUrl = credentials.changeTenantUrl;
+                    const cardId = this.getNodeParameter('cardIdChangeTenant', itemIndex);
+                    const tenantId = this.getNodeParameter('tenantId', itemIndex);
+                    const body = {
+                        tenantId,
+                    };
+                    const options = {
+                        method: 'PUT',
+                        url: `${apiUrl}${changeTenantUrl}/${cardId}`,
+                        headers: {
+                            'x-client-id': clientId,
+                            'x-client-secret': clientSecret,
+                            'Content-Type': 'application/json',
+                        },
+                        body,
+                        json: true,
+                    };
+                    const response = await this.helpers.httpRequest(options);
+                    returnData.push({ json: response, pairedItem: itemIndex });
                 }
             }
             catch (error) {
