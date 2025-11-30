@@ -14,7 +14,7 @@ export class Crm implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'CRM',
 		name: 'crm',
-		icon: 'file:image.png',
+		icon: 'file:crm.svg',
 		group: ['transform'],
 		version: 1,
 		description: 'Create and update leads in CRM',
@@ -91,7 +91,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getOwners',
 				},
 				default: '',
-				description: 'The owner for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The owner for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Coluna De Entrada Do Lead Name or ID',
@@ -107,7 +108,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getColumns',
 				},
 				default: '',
-				description: 'The column where the lead will be created. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The column where the lead will be created. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Company Name',
@@ -277,7 +279,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getOwners',
 				},
 				default: '',
-				description: 'The owner for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The owner for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Coluna De Entrada Do Lead Name or ID',
@@ -293,7 +296,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getColumns',
 				},
 				default: '',
-				description: 'The column where the lead will be created. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The column where the lead will be created. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Company Name',
@@ -1767,7 +1771,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getColumns',
 				},
 				default: '',
-				description: 'The column where the disqualified lead will be moved. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The column where the disqualified lead will be moved. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Novo Index',
@@ -1872,7 +1877,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getTenants',
 				},
 				default: '',
-				description: 'The tenant to assign to the lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The tenant to assign to the lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 
 			// Update Lead fields
@@ -1962,7 +1968,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getOwners',
 				},
 				default: '',
-				description: 'The owner for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The owner for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Tenant Name or ID',
@@ -1977,7 +1984,8 @@ export class Crm implements INodeType {
 					loadOptionsMethod: 'getTenants',
 				},
 				default: '',
-				description: 'The tenant for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'The tenant for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Channel',
