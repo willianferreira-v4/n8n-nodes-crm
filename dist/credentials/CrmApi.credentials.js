@@ -4,6 +4,7 @@ exports.CrmApi = void 0;
 class CrmApi {
     constructor() {
         this.name = 'crmApi';
+        this.icon = 'file:crm.svg';
         this.displayName = 'CRM API';
         this.documentationUrl = 'https://github.com/org/repo';
         this.properties = [
