@@ -2360,7 +2360,7 @@ export class Crm implements INodeType {
 							const fieldType = fieldConfig.type as string;
 
 							// Get the appropriate value based on field type
-							let fieldValue: any;
+							let fieldValue;
 							if (fieldData.booleanValue !== undefined) {
 								fieldValue = fieldData.booleanValue;
 							} else if (fieldData.dropdownValue !== undefined) {
@@ -2526,7 +2526,7 @@ export class Crm implements INodeType {
 						const fieldType = fieldConfig.type as string;
 
 						// Get the appropriate value based on field type
-						let fieldValue: any;
+						let fieldValue;
 						if (fieldData.booleanValue !== undefined) {
 							fieldValue = fieldData.booleanValue;
 						} else if (fieldData.dropdownValue !== undefined) {
