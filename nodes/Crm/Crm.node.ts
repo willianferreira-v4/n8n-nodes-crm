@@ -27,6 +27,7 @@ export class Crm implements INodeType {
 			{
 				name: 'crmApi',
 				required: true,
+				testedBy: 'Crm',
 			},
 		],
 		properties: [

@@ -1,7 +1,8 @@
-import type { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
+import type { IAuthenticateGeneric, Icon, ICredentialType, INodeProperties } from 'n8n-workflow';
 
 export class CrmApi implements ICredentialType {
 	name = 'crmApi';
+	icon: Icon = 'file:crm.svg';
 	displayName = 'CRM API';
 	documentationUrl = 'https://github.com/org/repo';
 	properties: INodeProperties[] = [
