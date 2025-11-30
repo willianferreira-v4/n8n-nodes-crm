@@ -9,11 +9,11 @@
 	],
 	"author": {
 		"name": "Willian Silva Ferreira",
-		"email": "williansferreir@icloud.com"
+		"email": "willian.ferreira@v4company.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/https://github.com/willianferreira-v4/n8n-nodes-crm.git"
+		"url": "https://github.com/willianferreira-v4/n8n-nodes-crm.git"
 	},
 	"scripts": {
 		"build": "n8n-node build",
@@ -34,7 +34,6 @@
 			"dist/credentials/CrmApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/Example/Example.node.js",
 			"dist/nodes/Crm/Crm.node.js"
 		]
 	},
