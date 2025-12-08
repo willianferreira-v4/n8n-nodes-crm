@@ -2329,6 +2329,9 @@ class Crm {
                             else if (fieldData.textValue !== undefined) {
                                 fieldValue = fieldData.textValue;
                             }
+                            if (fieldValue === null || fieldValue === undefined || fieldValue === '') {
+                                continue;
+                            }
                             const updateBody = {
                                 cardId,
                                 cardCustomFieldsId: fieldId,
@@ -2481,6 +2484,9 @@ class Crm {
                         }
                         else if (fieldData.textValue !== undefined) {
                             fieldValue = fieldData.textValue;
+                        }
+                        if (fieldValue === null || fieldValue === undefined || fieldValue === '') {
+                            continue;
                         }
                         const body = {
                             cardId,

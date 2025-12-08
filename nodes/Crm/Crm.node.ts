@@ -2422,6 +2422,11 @@ export class Crm implements INodeType {
 								fieldValue = fieldData.textValue;
 							}
 
+							// Skip if value is null, undefined or empty string
+							if (fieldValue === null || fieldValue === undefined || fieldValue === '') {
+								continue;
+							}
+
 							// Build update body based on field type
 							const updateBody: IDataObject = {
 								cardId,
@@ -2586,6 +2591,11 @@ export class Crm implements INodeType {
 							fieldValue = fieldData.numberValue;
 						} else if (fieldData.textValue !== undefined) {
 							fieldValue = fieldData.textValue;
+						}
+
+						// Skip if value is null, undefined or empty string
+						if (fieldValue === null || fieldValue === undefined || fieldValue === '') {
+							continue;
 						}
 
 						// Build body based on field type
