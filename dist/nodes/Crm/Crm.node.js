@@ -61,6 +61,12 @@ class Crm {
                             action: 'Update a lead',
                         },
                         {
+                            name: 'Update Lead Column',
+                            value: 'updateLeadColumn',
+                            description: 'Move a lead to a different column',
+                            action: 'Update lead column',
+                        },
+                        {
                             name: 'Update Lead Custom Field',
                             value: 'updateLeadField',
                             description: 'Update a custom field on a lead',
@@ -1716,6 +1722,59 @@ class Crm {
                 },
                 {
                     displayName: 'Card ID',
+                    name: 'cardIdUpdateColumn',
+                    type: 'string',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLeadColumn'],
+                        },
+                    },
+                    default: '',
+                    description: 'The ID of the card (lead) to move',
+                },
+                {
+                    displayName: 'Coluna De Destino Name or ID',
+                    name: 'toColumnIdUpdate',
+                    type: 'options',
+                    required: true,
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLeadColumn'],
+                        },
+                    },
+                    typeOptions: {
+                        loadOptionsMethod: 'getColumns',
+                    },
+                    default: '',
+                    description: 'The column where the lead will be moved. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+                },
+                {
+                    displayName: 'Novo Index',
+                    name: 'newIndexUpdate',
+                    type: 'number',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLeadColumn'],
+                        },
+                    },
+                    default: 0,
+                    description: 'The new index position of the card in the column',
+                },
+                {
+                    displayName: 'Ignorar Validação De Campos Obrigatórios',
+                    name: 'ignoreColumnsRequiredFieldsValidationUpdate',
+                    type: 'boolean',
+                    displayOptions: {
+                        show: {
+                            operation: ['updateLeadColumn'],
+                        },
+                    },
+                    default: true,
+                    description: 'Whether to ignore required fields validation when moving to the column',
+                },
+                {
+                    displayName: 'Card ID',
                     name: 'cardIdDisqualify',
                     type: 'string',
                     required: true,
@@ -2058,19 +2117,6 @@ class Crm {
                     },
                     default: '',
                     description: 'Additional description for the lost reason',
-                },
-                {
-                    displayName: 'Card ID',
-                    name: 'cardId',
-                    type: 'string',
-                    required: true,
-                    displayOptions: {
-                        show: {
-                            operation: ['updateLeadField'],
-                        },
-                    },
-                    default: '',
-                    description: 'The ID of the card (lead) to update',
                 },
             ],
             usableAsTool: true,
