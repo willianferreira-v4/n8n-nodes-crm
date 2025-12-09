@@ -2022,7 +2022,6 @@ export class Crm implements INodeType {
 				displayName: 'Owner Name or ID',
 				name: 'ownerIdUpdate',
 				type: 'options',
-				required: false,
 				displayOptions: {
 					show: {
 						operation: ['updateLead'],
@@ -2039,7 +2038,6 @@ export class Crm implements INodeType {
 				displayName: 'Tenant Name or ID',
 				name: 'tenantIdUpdate',
 				type: 'options',
-				required: false,
 				displayOptions: {
 					show: {
 						operation: ['updateLead'],
