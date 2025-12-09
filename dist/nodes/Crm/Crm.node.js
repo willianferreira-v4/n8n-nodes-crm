@@ -1981,7 +1981,6 @@ class Crm {
                     displayName: 'Owner Name or ID',
                     name: 'ownerIdUpdate',
                     type: 'options',
-                    required: false,
                     displayOptions: {
                         show: {
                             operation: ['updateLead'],
@@ -1997,7 +1996,6 @@ class Crm {
                     displayName: 'Tenant Name or ID',
                     name: 'tenantIdUpdate',
                     type: 'options',
-                    required: false,
                     displayOptions: {
                         show: {
                             operation: ['updateLead'],
