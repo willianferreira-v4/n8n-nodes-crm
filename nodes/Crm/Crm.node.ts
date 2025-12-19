@@ -2746,7 +2746,7 @@ export class Crm implements INodeType {
 					// Try to extract and format specific error messages
 					if (responseBody.errors && Array.isArray(responseBody.errors)) {
 						detailedMessage += `Errors:\n`;
-						responseBody.errors.forEach((err, index: number) => {
+						responseBody.errors.forEach((err: { code: number; message: string }, index: number) => {
 							detailedMessage += `\n  ${index + 1}. ${err.code || 'Error'}:\n`;
 							detailedMessage += `     ${err.message || JSON.stringify(err)}\n`;
 						});
