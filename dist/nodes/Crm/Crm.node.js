@@ -2169,6 +2169,7 @@ class Crm {
         };
     }
     async execute() {
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const items = this.getInputData();
         const returnData = [];
         const credentials = await this.getCredentials('crmApi');
@@ -2585,19 +2586,76 @@ class Crm {
                 }
             }
             catch (error) {
+                const operation = this.getNodeParameter('operation', itemIndex);
+                let responseBody;
+                let statusCode;
+                let requestUrl;
+                let requestMethod;
+                if (error.response) {
+                    statusCode = error.response.status || error.response.statusCode;
+                    responseBody = error.response.data || error.response.body;
+                    requestUrl = ((_a = error.response.config) === null || _a === void 0 ? void 0 : _a.url) || ((_b = error.config) === null || _b === void 0 ? void 0 : _b.url);
+                    requestMethod = ((_c = error.response.config) === null || _c === void 0 ? void 0 : _c.method) || ((_d = error.config) === null || _d === void 0 ? void 0 : _d.method);
+                }
+                else if ((_e = error.cause) === null || _e === void 0 ? void 0 : _e.response) {
+                    statusCode = error.cause.response.status || error.cause.response.statusCode;
+                    responseBody = error.cause.response.data || error.cause.response.body;
+                    requestUrl = (_f = error.cause.response.config) === null || _f === void 0 ? void 0 : _f.url;
+                    requestMethod = (_g = error.cause.response.config) === null || _g === void 0 ? void 0 : _g.method;
+                }
+                if (!responseBody && ((_h = error.options) === null || _h === void 0 ? void 0 : _h.body)) {
+                    responseBody = error.options.body;
+                }
+                let detailedMessage = `CRM API Error - ${operation}\n\n`;
+                detailedMessage += `Status Code: ${statusCode || 'Unknown'}\n`;
+                if (requestMethod && requestUrl) {
+                    detailedMessage += `Request: ${requestMethod.toUpperCase()} ${requestUrl}\n\n`;
+                }
+                if (responseBody) {
+                    if (responseBody.errors && Array.isArray(responseBody.errors)) {
+                        detailedMessage += `Errors:\n`;
+                        responseBody.errors.forEach((err, index) => {
+                            detailedMessage += `\n  ${index + 1}. ${err.code || 'Error'}:\n`;
+                            detailedMessage += `     ${err.message || JSON.stringify(err)}\n`;
+                        });
+                        if (responseBody.traceId) {
+                            detailedMessage += `\nTrace ID: ${responseBody.traceId}\n`;
+                        }
+                    }
+                    else if (responseBody.message) {
+                        detailedMessage += `Message: ${responseBody.message}\n`;
+                    }
+                    else {
+                        detailedMessage += `\nAPI Response:\n`;
+                        if (typeof responseBody === 'string') {
+                            detailedMessage += responseBody;
+                        }
+                        else {
+                            detailedMessage += JSON.stringify(responseBody, null, 2);
+                        }
+                    }
+                }
+                else {
+                    detailedMessage += `\nNo response body available\n`;
+                    detailedMessage += `Original error: ${error.message}`;
+                }
                 if (this.continueOnFail()) {
                     returnData.push({
-                        json: { error: error.message },
+                        json: {
+                            error: error.message,
+                            operation,
+                            statusCode,
+                            responseBody,
+                            requestUrl,
+                            requestMethod,
+                        },
                         pairedItem: itemIndex,
                     });
                 }
                 else {
-                    if (error.context) {
-                        error.context.itemIndex = itemIndex;
-                        throw error;
-                    }
-                    throw new n8n_workflow_1.NodeOperationError(this.getNode(), error, {
+                    throw new n8n_workflow_1.NodeOperationError(this.getNode(), detailedMessage, {
                         itemIndex,
+                        description: `CRM ${operation} operation failed`,
                     });
                 }
             }

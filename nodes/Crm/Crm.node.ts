@@ -2707,18 +2707,84 @@ export class Crm implements INodeType {
 					returnData.push({ json: response, pairedItem: itemIndex });
 				}
 			} catch (error) {
+				// Extract detailed error information
+				const operation = this.getNodeParameter('operation', itemIndex) as string;
+
+				// Try to get the actual error response from various possible locations
+				let responseBody;
+				let statusCode: number | undefined;
+				let requestUrl: string | undefined;
+				let requestMethod: string | undefined;
+
+				// Check multiple possible locations for error details
+				if (error.response) {
+					statusCode = error.response.status || error.response.statusCode;
+					responseBody = error.response.data || error.response.body;
+					requestUrl = error.response.config?.url || error.config?.url;
+					requestMethod = error.response.config?.method || error.config?.method;
+				} else if (error.cause?.response) {
+					statusCode = error.cause.response.status || error.cause.response.statusCode;
+					responseBody = error.cause.response.data || error.cause.response.body;
+					requestUrl = error.cause.response.config?.url;
+					requestMethod = error.cause.response.config?.method;
+				}
+
+				// If still no response body, check error properties directly
+				if (!responseBody && error.options?.body) {
+					responseBody = error.options.body;
+				}
+
+				// Build detailed error message
+				let detailedMessage = `CRM API Error - ${operation}\n\n`;
+				detailedMessage += `Status Code: ${statusCode || 'Unknown'}\n`;
+
+				if (requestMethod && requestUrl) {
+					detailedMessage += `Request: ${requestMethod.toUpperCase()} ${requestUrl}\n\n`;
+				}
+
+				if (responseBody) {
+					// Try to extract and format specific error messages
+					if (responseBody.errors && Array.isArray(responseBody.errors)) {
+						detailedMessage += `Errors:\n`;
+						responseBody.errors.forEach((err, index: number) => {
+							detailedMessage += `\n  ${index + 1}. ${err.code || 'Error'}:\n`;
+							detailedMessage += `     ${err.message || JSON.stringify(err)}\n`;
+						});
+
+						if (responseBody.traceId) {
+							detailedMessage += `\nTrace ID: ${responseBody.traceId}\n`;
+						}
+					} else if (responseBody.message) {
+						detailedMessage += `Message: ${responseBody.message}\n`;
+					} else {
+						detailedMessage += `\nAPI Response:\n`;
+						if (typeof responseBody === 'string') {
+							detailedMessage += responseBody;
+						} else {
+							detailedMessage += JSON.stringify(responseBody, null, 2);
+						}
+					}
+				} else {
+					detailedMessage += `\nNo response body available\n`;
+					detailedMessage += `Original error: ${error.message}`;
+				}
+
 				if (this.continueOnFail()) {
 					returnData.push({
-						json: { error: error.message },
+						json: {
+							error: error.message,
+							operation,
+							statusCode,
+							responseBody,
+							requestUrl,
+							requestMethod,
+						},
 						pairedItem: itemIndex,
 					});
 				} else {
-					if (error.context) {
-						error.context.itemIndex = itemIndex;
-						throw error;
-					}
-					throw new NodeOperationError(this.getNode(), error, {
+					throw new NodeOperationError(this.getNode(), detailedMessage, {
 						itemIndex,
+						description: `CRM ${operation} operation failed`,
 					});
 				}
 			}
