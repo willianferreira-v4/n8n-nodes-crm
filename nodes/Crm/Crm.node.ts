@@ -32,52 +32,70 @@ export class Crm implements INodeType {
 		],
 		properties: [
 			{
+				displayName: 'Resource',
+				name: 'resource',
+				type: 'options',
+				noDataExpression: true,
+				options: [
+					{
+						name: 'Lead',
+						value: 'lead',
+					},
+				],
+				default: 'lead',
+			},
+			{
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
 				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['lead'],
+					},
+				},
 				options: [
 					{
 						name: 'Change Tenant',
 						value: 'changeTenant',
 						description: 'Change the tenant of a lead',
-						action: 'Change lead tenant',
+						action: 'Change tenant',
 					},
 					{
-						name: 'Create Lead',
+						name: 'Create',
 						value: 'createLead',
 						description: 'Create a new lead',
-						action: 'Create a lead',
+						action: 'Create',
 					},
 					{
-						name: 'Create Lead and Update Fields',
+						name: 'Create and Update Fields',
 						value: 'createAndUpdate',
 						description: 'Create a new lead and update custom fields',
-						action: 'Create lead and update custom fields',
+						action: 'Create and update fields',
 					},
 					{
-						name: 'Disqualify Lead',
+						name: 'Disqualify',
 						value: 'disqualifyLead',
 						description: 'Disqualify a lead and move to disqualification column',
-						action: 'Disqualify a lead',
+						action: 'Disqualify',
 					},
 					{
-						name: 'Update Lead',
+						name: 'Update',
 						value: 'updateLead',
 						description: 'Update main fields of a lead',
-						action: 'Update a lead',
+						action: 'Update',
 					},
 					{
-						name: 'Update Lead Column',
+						name: 'Update Column',
 						value: 'updateLeadColumn',
 						description: 'Move a lead to a different column',
-						action: 'Update lead column',
+						action: 'Update column',
 					},
 					{
-						name: 'Update Lead Custom Field',
+						name: 'Update Custom Field',
 						value: 'updateLeadField',
 						description: 'Update a custom field on a lead',
-						action: 'Update a lead custom field',
+						action: 'Update custom field',
 					},
 				],
 				default: 'createLead',
@@ -90,8 +108,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				typeOptions: {
@@ -107,8 +126,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				typeOptions: {
@@ -124,8 +144,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -137,8 +158,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -150,8 +172,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				placeholder: 'name@email.com',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -162,8 +185,9 @@ export class Crm implements INodeType {
 				name: 'phone',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -174,8 +198,9 @@ export class Crm implements INodeType {
 				name: 'taxId',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -186,8 +211,9 @@ export class Crm implements INodeType {
 				name: 'companyNationality',
 				type: 'options',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				options: [
@@ -203,8 +229,9 @@ export class Crm implements INodeType {
 				name: 'utmSource',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -215,8 +242,9 @@ export class Crm implements INodeType {
 				name: 'utmCampaign',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -227,8 +255,9 @@ export class Crm implements INodeType {
 				name: 'utmContent',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -239,8 +268,9 @@ export class Crm implements INodeType {
 				name: 'utmMedium',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -251,8 +281,9 @@ export class Crm implements INodeType {
 				name: 'utmTerm',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -263,8 +294,9 @@ export class Crm implements INodeType {
 				name: 'sourcePage',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['createLead'],
 					},
 				},
 				default: '',
@@ -278,8 +310,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				typeOptions: {
@@ -295,8 +328,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				typeOptions: {
@@ -312,8 +346,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -325,8 +360,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -337,8 +373,9 @@ export class Crm implements INodeType {
 				name: 'emailCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -349,8 +386,9 @@ export class Crm implements INodeType {
 				name: 'phoneCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -361,8 +399,9 @@ export class Crm implements INodeType {
 				name: 'taxIdCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -373,8 +412,9 @@ export class Crm implements INodeType {
 				name: 'companyNationalityCreateUpdate',
 				type: 'options',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				options: [
@@ -390,8 +430,9 @@ export class Crm implements INodeType {
 				name: 'utmSourceCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -402,8 +443,9 @@ export class Crm implements INodeType {
 				name: 'utmCampaignCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -414,8 +456,9 @@ export class Crm implements INodeType {
 				name: 'utmContentCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -426,8 +469,9 @@ export class Crm implements INodeType {
 				name: 'utmMediumCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -438,8 +482,9 @@ export class Crm implements INodeType {
 				name: 'utmTermCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -450,8 +495,9 @@ export class Crm implements INodeType {
 				name: 'sourcePageCreateUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: '',
@@ -465,8 +511,9 @@ export class Crm implements INodeType {
 					multipleValues: true,
 				},
 				displayOptions: {
-					show: {
-						operation: ['createAndUpdate'],
+				show: {
+					resource: ['lead'],
+					operation: ['createAndUpdate'],
 					},
 				},
 				default: {},
@@ -1104,8 +1151,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['updateLeadField'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLeadField'],
 					},
 				},
 				default: '',
@@ -1119,8 +1167,9 @@ export class Crm implements INodeType {
 					multipleValues: true,
 				},
 				displayOptions: {
-					show: {
-						operation: ['updateLeadField'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLeadField'],
 					},
 				},
 				default: {},
@@ -1757,8 +1806,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['updateLeadColumn'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLeadColumn'],
 					},
 				},
 				default: '',
@@ -1770,8 +1820,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['updateLeadColumn'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLeadColumn'],
 					},
 				},
 				typeOptions: {
@@ -1786,8 +1837,9 @@ export class Crm implements INodeType {
 				name: 'newIndexUpdate',
 				type: 'number',
 				displayOptions: {
-					show: {
-						operation: ['updateLeadColumn'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLeadColumn'],
 					},
 				},
 				default: 0,
@@ -1798,8 +1850,9 @@ export class Crm implements INodeType {
 				name: 'ignoreColumnsRequiredFieldsValidationUpdate',
 				type: 'boolean',
 				displayOptions: {
-					show: {
-						operation: ['updateLeadColumn'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLeadColumn'],
 					},
 				},
 				default: true,
@@ -1813,8 +1866,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['disqualifyLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['disqualifyLead'],
 					},
 				},
 				default: '',
@@ -1826,8 +1880,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['disqualifyLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['disqualifyLead'],
 					},
 				},
 				typeOptions: {
@@ -1842,8 +1897,9 @@ export class Crm implements INodeType {
 				name: 'newIndex',
 				type: 'number',
 				displayOptions: {
-					show: {
-						operation: ['disqualifyLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['disqualifyLead'],
 					},
 				},
 				default: 0,
@@ -1854,8 +1910,9 @@ export class Crm implements INodeType {
 				name: 'ignoreColumnsRequiredFieldsValidation',
 				type: 'boolean',
 				displayOptions: {
-					show: {
-						operation: ['disqualifyLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['disqualifyLead'],
 					},
 				},
 				default: true,
@@ -1868,8 +1925,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['disqualifyLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['disqualifyLead'],
 					},
 				},
 				options: [
@@ -1904,8 +1962,9 @@ export class Crm implements INodeType {
 					rows: 4,
 				},
 				displayOptions: {
-					show: {
-						operation: ['disqualifyLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['disqualifyLead'],
 					},
 				},
 				default: '',
@@ -1919,8 +1978,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['changeTenant'],
+				show: {
+					resource: ['lead'],
+					operation: ['changeTenant'],
 					},
 				},
 				default: '',
@@ -1932,8 +1992,9 @@ export class Crm implements INodeType {
 				type: 'options',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['changeTenant'],
+				show: {
+					resource: ['lead'],
+					operation: ['changeTenant'],
 					},
 				},
 				typeOptions: {
@@ -1951,8 +2012,9 @@ export class Crm implements INodeType {
 				type: 'string',
 				required: true,
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -1963,8 +2025,9 @@ export class Crm implements INodeType {
 				name: 'titleUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -1975,8 +2038,9 @@ export class Crm implements INodeType {
 				name: 'companyNameUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -1987,8 +2051,9 @@ export class Crm implements INodeType {
 				name: 'emailUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -1999,8 +2064,9 @@ export class Crm implements INodeType {
 				name: 'phoneUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2011,8 +2077,9 @@ export class Crm implements INodeType {
 				name: 'taxIdUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2023,8 +2090,9 @@ export class Crm implements INodeType {
 				name: 'ownerIdUpdate',
 				type: 'options',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				typeOptions: {
@@ -2039,8 +2107,9 @@ export class Crm implements INodeType {
 				name: 'tenantIdUpdate',
 				type: 'options',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				typeOptions: {
@@ -2055,8 +2124,9 @@ export class Crm implements INodeType {
 				name: 'channelUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2067,8 +2137,9 @@ export class Crm implements INodeType {
 				name: 'utmSourceUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2079,8 +2150,9 @@ export class Crm implements INodeType {
 				name: 'utmCampaignUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2091,8 +2163,9 @@ export class Crm implements INodeType {
 				name: 'utmContentUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2103,8 +2176,9 @@ export class Crm implements INodeType {
 				name: 'utmMediumUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2115,8 +2189,9 @@ export class Crm implements INodeType {
 				name: 'utmTermUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2127,8 +2202,9 @@ export class Crm implements INodeType {
 				name: 'sourcePageUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2139,8 +2215,9 @@ export class Crm implements INodeType {
 				name: 'lostReasonUpdate',
 				type: 'string',
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',
@@ -2154,8 +2231,9 @@ export class Crm implements INodeType {
 					rows: 4,
 				},
 				displayOptions: {
-					show: {
-						operation: ['updateLead'],
+				show: {
+					resource: ['lead'],
+					operation: ['updateLead'],
 					},
 				},
 				default: '',

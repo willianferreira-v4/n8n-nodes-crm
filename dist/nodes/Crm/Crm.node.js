@@ -25,52 +25,70 @@ class Crm {
             ],
             properties: [
                 {
+                    displayName: 'Resource',
+                    name: 'resource',
+                    type: 'options',
+                    noDataExpression: true,
+                    options: [
+                        {
+                            name: 'Lead',
+                            value: 'lead',
+                        },
+                    ],
+                    default: 'lead',
+                },
+                {
                     displayName: 'Operation',
                     name: 'operation',
                     type: 'options',
                     noDataExpression: true,
+                    displayOptions: {
+                        show: {
+                            resource: ['lead'],
+                        },
+                    },
                     options: [
                         {
                             name: 'Change Tenant',
                             value: 'changeTenant',
                             description: 'Change the tenant of a lead',
-                            action: 'Change lead tenant',
+                            action: 'Change tenant',
                         },
                         {
-                            name: 'Create Lead',
+                            name: 'Create',
                             value: 'createLead',
                             description: 'Create a new lead',
-                            action: 'Create a lead',
+                            action: 'Create',
                         },
                         {
-                            name: 'Create Lead and Update Fields',
+                            name: 'Create and Update Fields',
                             value: 'createAndUpdate',
                             description: 'Create a new lead and update custom fields',
-                            action: 'Create lead and update custom fields',
+                            action: 'Create and update fields',
                         },
                         {
-                            name: 'Disqualify Lead',
+                            name: 'Disqualify',
                             value: 'disqualifyLead',
                             description: 'Disqualify a lead and move to disqualification column',
-                            action: 'Disqualify a lead',
+                            action: 'Disqualify',
                         },
                         {
-                            name: 'Update Lead',
+                            name: 'Update',
                             value: 'updateLead',
                             description: 'Update main fields of a lead',
-                            action: 'Update a lead',
+                            action: 'Update',
                         },
                         {
-                            name: 'Update Lead Column',
+                            name: 'Update Column',
                             value: 'updateLeadColumn',
                             description: 'Move a lead to a different column',
-                            action: 'Update lead column',
+                            action: 'Update column',
                         },
                         {
-                            name: 'Update Lead Custom Field',
+                            name: 'Update Custom Field',
                             value: 'updateLeadField',
                             description: 'Update a custom field on a lead',
-                            action: 'Update a lead custom field',
+                            action: 'Update custom field',
                         },
                     ],
                     default: 'createLead',
@@ -82,6 +100,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -98,6 +117,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -114,6 +134,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -127,6 +148,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -140,6 +162,7 @@ class Crm {
                     placeholder: 'name@email.com',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -152,6 +175,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -164,6 +188,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -176,6 +201,7 @@ class Crm {
                     type: 'options',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -193,6 +219,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -205,6 +232,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -217,6 +245,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -229,6 +258,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -241,6 +271,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -253,6 +284,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createLead'],
                         },
                     },
@@ -266,6 +298,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -282,6 +315,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -298,6 +332,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -311,6 +346,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -323,6 +359,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -335,6 +372,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -347,6 +385,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -359,6 +398,7 @@ class Crm {
                     type: 'options',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -376,6 +416,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -388,6 +429,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -400,6 +442,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -412,6 +455,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -424,6 +468,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -436,6 +481,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -451,6 +497,7 @@ class Crm {
                     },
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['createAndUpdate'],
                         },
                     },
@@ -1082,6 +1129,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLeadField'],
                         },
                     },
@@ -1097,6 +1145,7 @@ class Crm {
                     },
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLeadField'],
                         },
                     },
@@ -1727,6 +1776,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLeadColumn'],
                         },
                     },
@@ -1740,6 +1790,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLeadColumn'],
                         },
                     },
@@ -1755,6 +1806,7 @@ class Crm {
                     type: 'number',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLeadColumn'],
                         },
                     },
@@ -1767,6 +1819,7 @@ class Crm {
                     type: 'boolean',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLeadColumn'],
                         },
                     },
@@ -1780,6 +1833,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['disqualifyLead'],
                         },
                     },
@@ -1793,6 +1847,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['disqualifyLead'],
                         },
                     },
@@ -1808,6 +1863,7 @@ class Crm {
                     type: 'number',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['disqualifyLead'],
                         },
                     },
@@ -1820,6 +1876,7 @@ class Crm {
                     type: 'boolean',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['disqualifyLead'],
                         },
                     },
@@ -1833,6 +1890,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['disqualifyLead'],
                         },
                     },
@@ -1869,6 +1927,7 @@ class Crm {
                     },
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['disqualifyLead'],
                         },
                     },
@@ -1882,6 +1941,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['changeTenant'],
                         },
                     },
@@ -1895,6 +1955,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['changeTenant'],
                         },
                     },
@@ -1911,6 +1972,7 @@ class Crm {
                     required: true,
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -1923,6 +1985,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -1935,6 +1998,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -1947,6 +2011,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -1959,6 +2024,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -1971,6 +2037,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -1983,6 +2050,7 @@ class Crm {
                     type: 'options',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -1998,6 +2066,7 @@ class Crm {
                     type: 'options',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2013,6 +2082,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2025,6 +2095,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2037,6 +2108,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2049,6 +2121,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2061,6 +2134,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2073,6 +2147,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2085,6 +2160,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2097,6 +2173,7 @@ class Crm {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
@@ -2112,6 +2189,7 @@ class Crm {
                     },
                     displayOptions: {
                         show: {
+                            resource: ['lead'],
                             operation: ['updateLead'],
                         },
                     },
