@@ -1,12 +1,12 @@
-import type { IExecuteFunctions, INodeExecutionData, INodeType, INodeTypeDescription, ILoadOptionsFunctions, INodePropertyOptions } from 'n8n-workflow';
+import type { IExecuteFunctions, INodeType, INodeTypeDescription } from 'n8n-workflow';
 export declare class Crm implements INodeType {
     description: INodeTypeDescription;
     methods: {
         loadOptions: {
-            getOwners(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]>;
-            getColumns(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]>;
-            getTenants(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]>;
+            getOwners(this: import("n8n-workflow").ILoadOptionsFunctions): Promise<import("n8n-workflow").INodePropertyOptions[]>;
+            getColumns(this: import("n8n-workflow").ILoadOptionsFunctions): Promise<import("n8n-workflow").INodePropertyOptions[]>;
+            getTenants(this: import("n8n-workflow").ILoadOptionsFunctions): Promise<import("n8n-workflow").INodePropertyOptions[]>;
         };
     };
-    execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]>;
+    execute(this: IExecuteFunctions): Promise<import("n8n-workflow").INodeExecutionData[][]>;
 }
