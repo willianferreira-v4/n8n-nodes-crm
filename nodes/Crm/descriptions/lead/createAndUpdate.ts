@@ -147,7 +147,7 @@ export const leadCreateAndUpdateDescription: INodeProperties[] = [
 		description: 'Nationality of the company',
 	},
 	{
-		displayName: 'Canal De Origem',
+		displayName: 'Canal De Origem Name or ID',
 		name: 'originChannelIdCreateUpdate',
 		type: 'options',
 		displayOptions: {
@@ -160,10 +160,11 @@ export const leadCreateAndUpdateDescription: INodeProperties[] = [
 			loadOptionsMethod: 'getOriginChannels',
 		},
 		default: '',
-		description: 'Canal de origem do lead. Escolha na lista ou informe um ID usando expressão.',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 	},
 	{
-		displayName: 'Canal De Aquisição',
+		displayName: 'Canal De Aquisição Name or ID',
 		name: 'acquisitionChannelIdCreateUpdate',
 		type: 'options',
 		displayOptions: {
@@ -176,7 +177,8 @@ export const leadCreateAndUpdateDescription: INodeProperties[] = [
 			loadOptionsMethod: 'getAcquisitionChannels',
 		},
 		default: '',
-		description: 'Canal de aquisição do lead. Escolha na lista ou informe um ID usando expressão.',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 	},
 	{
 		displayName: 'UTM Source',

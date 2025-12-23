@@ -115,19 +115,7 @@ export const leadUpdateDescription: INodeProperties[] = [
 			'The tenant for this lead. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
-		displayName: 'Channel',
-		name: 'channelUpdate',
-		type: 'hidden',
-		displayOptions: {
-			show: {
-				resource: ['lead'],
-				operation: ['updateLead'],
-			},
-		},
-		default: '',
-	},
-	{
-		displayName: 'Canal De Origem',
+		displayName: 'Canal De Origem Name or ID',
 		name: 'originChannelIdUpdate',
 		type: 'options',
 		displayOptions: {
@@ -140,10 +128,11 @@ export const leadUpdateDescription: INodeProperties[] = [
 			loadOptionsMethod: 'getOriginChannels',
 		},
 		default: '',
-		description: 'Canal de origem do lead.',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 	},
 	{
-		displayName: 'Canal De Aquisição',
+		displayName: 'Canal De Aquisição Name or ID',
 		name: 'acquisitionChannelIdUpdate',
 		type: 'options',
 		displayOptions: {
@@ -156,7 +145,8 @@ export const leadUpdateDescription: INodeProperties[] = [
 			loadOptionsMethod: 'getAcquisitionChannels',
 		},
 		default: '',
-		description: 'Canal de aquisição do lead.',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 	},
 	{
 		displayName: 'UTM Source',
