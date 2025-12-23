@@ -8,14 +8,14 @@ const lead_2 = require("./execute/lead");
 class Crm {
     constructor() {
         this.description = {
-            displayName: 'CRM',
+            displayName: 'V4 CRM',
             name: 'crm',
             icon: 'file:crm.svg',
             group: ['transform'],
             version: 1,
             description: 'Create and update leads in CRM',
             defaults: {
-                name: 'CRM',
+                name: 'V4 CRM',
             },
             inputs: [n8n_workflow_1.NodeConnectionTypes.Main],
             outputs: [n8n_workflow_1.NodeConnectionTypes.Main],

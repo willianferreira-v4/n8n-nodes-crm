@@ -6,14 +6,14 @@ import { executeLead } from './execute/lead';
 
 export class Crm implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'CRM',
+		displayName: 'V4 CRM',
 		name: 'crm',
 		icon: 'file:crm.svg',
 		group: ['transform'],
 		version: 1,
 		description: 'Create and update leads in CRM',
 		defaults: {
-			name: 'CRM',
+			name: 'V4 CRM',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],

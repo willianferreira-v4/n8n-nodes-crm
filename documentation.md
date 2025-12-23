@@ -364,3 +364,25 @@ O nó suporta **56 campos customizados** distribuídos por tipo:
 | **Text**          | 31 campos      | Campos de texto curto e longo              |
 
 Cada campo é configurado nas credenciais com seu ID único e tipo, permitindo que o nó renderize automaticamente o input apropriado na interface.
+
+---
+
+## 📁 Estrutura do Nó (organização)
+
+- `nodes/Crm/Crm.node.ts`: classe principal do nó, importa descrições, métodos e executor.
+- `nodes/Crm/descriptions/lead/`: descrições separadas por operação (`base`, `create`, `createAndUpdate`, `update`, `updateLeadField`, `updateLeadColumn`, `disqualifyLead`, `changeTenant`).
+- `nodes/Crm/descriptions/lead/options.ts`: fonte única de listas e nomes de campos usados em todas as operações (motivos, segmentos, canais, faixas de faturamento, etc.) e também `customFieldsOptions`.
+- `nodes/Crm/execute/lead.ts`: lógica de execução das operações.
+- `nodes/Crm/methods/loadOptions.ts`: carregamento de owners, columns e tenants a partir das credenciais.
+
+### Valores vindos das credenciais
+
+- **Owners**, **Columns** e **Tenants** são carregados via `methods.loadOptions` a partir das credenciais (`crmApi`).
+- **Custom fields**: o mapa `customFieldIds` (JSON nas credenciais) define `id` e `type` de cada campo customizado. As listas de nomes disponíveis para seleção estão em `options.ts` (`customFieldsOptions`, `leadDropdownFieldNames`, etc.). Esses nomes são mapeados para IDs/tipos em tempo de execução antes do envio à API.
+- **Endpoints e chaves**: `apiUrl`, `clientId`, `clientSecret`, `createLeadUrl`, `updateLeadUrl`, `updateLeadMainUrl`, `disqualifyLeadUrl`, `changeTenantUrl` são lidos das credenciais e usados em cada operação.
+
+### Como manter consistência nas opções
+
+- Sempre adicionar/alterar opções (ex.: novos segmentos, motivos, canais) em `nodes/Crm/descriptions/lead/options.ts`.
+- As operações devem apenas importar as listas de `options.ts`; não duplique opções dentro dos arquivos de operação.
+- Para novos campos customizados, inclua o nome em `customFieldsOptions` e, se for dropdown, adicione as opções no array correspondente; o ID/tipo continua vindo de `customFieldIds` nas credenciais.
