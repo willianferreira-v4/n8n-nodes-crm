@@ -117,7 +117,7 @@ export const leadUpdateDescription: INodeProperties[] = [
 	{
 		displayName: 'Channel',
 		name: 'channelUpdate',
-		type: 'string',
+		type: 'hidden',
 		displayOptions: {
 			show: {
 				resource: ['lead'],
@@ -125,7 +125,38 @@ export const leadUpdateDescription: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'The channel of the lead',
+	},
+	{
+		displayName: 'Canal De Origem',
+		name: 'originChannelIdUpdate',
+		type: 'options',
+		displayOptions: {
+			show: {
+				resource: ['lead'],
+				operation: ['updateLead'],
+			},
+		},
+		typeOptions: {
+			loadOptionsMethod: 'getOriginChannels',
+		},
+		default: '',
+		description: 'Canal de origem do lead.',
+	},
+	{
+		displayName: 'Canal De Aquisição',
+		name: 'acquisitionChannelIdUpdate',
+		type: 'options',
+		displayOptions: {
+			show: {
+				resource: ['lead'],
+				operation: ['updateLead'],
+			},
+		},
+		typeOptions: {
+			loadOptionsMethod: 'getAcquisitionChannels',
+		},
+		default: '',
+		description: 'Canal de aquisição do lead.',
 	},
 	{
 		displayName: 'UTM Source',

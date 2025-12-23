@@ -33,6 +33,12 @@ export async function executeLead(this: IExecuteFunctions): Promise<INodeExecuti
 					itemIndex,
 					'',
 				) as string;
+				const originChannelId = this.getNodeParameter('originChannelId', itemIndex, '') as string;
+				const acquisitionChannelId = this.getNodeParameter(
+					'acquisitionChannelId',
+					itemIndex,
+					'',
+				) as string;
 				const utmSource = this.getNodeParameter('utmSource', itemIndex, '') as string;
 				const utmCampaign = this.getNodeParameter('utmCampaign', itemIndex, '') as string;
 				const utmContent = this.getNodeParameter('utmContent', itemIndex, '') as string;
@@ -50,6 +56,8 @@ export async function executeLead(this: IExecuteFunctions): Promise<INodeExecuti
 				if (phone) body.phone = phone;
 				if (taxId) body.taxId = taxId;
 				if (companyNationality) body.companyNationality = companyNationality;
+				if (originChannelId) body.originChannelId = originChannelId;
+				if (acquisitionChannelId) body.acquisitionChannelId = acquisitionChannelId;
 				if (utmSource) body.utmSource = utmSource;
 				if (utmCampaign) body.utmCampaign = utmCampaign;
 				if (utmContent) body.utmContent = utmContent;
@@ -87,6 +95,16 @@ export async function executeLead(this: IExecuteFunctions): Promise<INodeExecuti
 					itemIndex,
 					'',
 				) as string;
+				const originChannelId = this.getNodeParameter(
+					'originChannelIdCreateUpdate',
+					itemIndex,
+					'',
+				) as string;
+				const acquisitionChannelId = this.getNodeParameter(
+					'acquisitionChannelIdCreateUpdate',
+					itemIndex,
+					'',
+				) as string;
 				const utmSource = this.getNodeParameter('utmSourceCreateUpdate', itemIndex, '') as string;
 				const utmCampaign = this.getNodeParameter(
 					'utmCampaignCreateUpdate',
@@ -109,6 +127,8 @@ export async function executeLead(this: IExecuteFunctions): Promise<INodeExecuti
 				if (phone) createBody.phone = phone;
 				if (taxId) createBody.taxId = taxId;
 				if (companyNationality) createBody.companyNationality = companyNationality;
+				if (originChannelId) createBody.originChannelId = originChannelId;
+				if (acquisitionChannelId) createBody.acquisitionChannelId = acquisitionChannelId;
 				if (utmSource) createBody.utmSource = utmSource;
 				if (utmCampaign) createBody.utmCampaign = utmCampaign;
 				if (utmContent) createBody.utmContent = utmContent;
@@ -265,7 +285,16 @@ export async function executeLead(this: IExecuteFunctions): Promise<INodeExecuti
 				const taxId = this.getNodeParameter('taxIdUpdate', itemIndex, '') as string;
 				const ownerId = this.getNodeParameter('ownerIdUpdate', itemIndex, '') as string;
 				const tenantId = this.getNodeParameter('tenantIdUpdate', itemIndex, '') as string;
-				const channel = this.getNodeParameter('channelUpdate', itemIndex, '') as string;
+				const originChannelId = this.getNodeParameter(
+					'originChannelIdUpdate',
+					itemIndex,
+					'',
+				) as string;
+				const acquisitionChannelId = this.getNodeParameter(
+					'acquisitionChannelIdUpdate',
+					itemIndex,
+					'',
+				) as string;
 				const utmSource = this.getNodeParameter('utmSourceUpdate', itemIndex, '') as string;
 				const utmCampaign = this.getNodeParameter('utmCampaignUpdate', itemIndex, '') as string;
 				const utmContent = this.getNodeParameter('utmContentUpdate', itemIndex, '') as string;
@@ -288,7 +317,8 @@ export async function executeLead(this: IExecuteFunctions): Promise<INodeExecuti
 				if (taxId) body.taxId = taxId;
 				if (ownerId) body.ownerId = ownerId;
 				if (tenantId) body.tenantId = tenantId;
-				if (channel) body.channel = channel;
+				if (originChannelId) body.originChannelId = originChannelId;
+				if (acquisitionChannelId) body.acquisitionChannelId = acquisitionChannelId;
 				if (utmSource) body.utmSource = utmSource;
 				if (utmCampaign) body.utmCampaign = utmCampaign;
 				if (utmContent) body.utmContent = utmContent;

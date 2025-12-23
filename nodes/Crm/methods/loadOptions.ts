@@ -56,4 +56,38 @@ export const loadOptions = {
 			);
 		}
 	},
+	async getOriginChannels(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+		const credentials = await this.getCredentials('crmApi');
+		const channelsJson = credentials.originChannels as string;
+
+		try {
+			const channels = JSON.parse(channelsJson) as Array<{ id: string; name: string }>;
+			return channels.map((channel) => ({
+				name: channel.name,
+				value: channel.id,
+			}));
+		} catch (error) {
+			throw new NodeOperationError(
+				this.getNode(),
+				`Invalid JSON in originChannels credential: ${error.message}`,
+			);
+		}
+	},
+	async getAcquisitionChannels(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+		const credentials = await this.getCredentials('crmApi');
+		const channelsJson = credentials.acquisitionChannels as string;
+
+		try {
+			const channels = JSON.parse(channelsJson) as Array<{ id: string; name: string }>;
+			return channels.map((channel) => ({
+				name: channel.name,
+				value: channel.id,
+			}));
+		} catch (error) {
+			throw new NodeOperationError(
+				this.getNode(),
+				`Invalid JSON in acquisitionChannels credential: ${error.message}`,
+			);
+		}
+	},
 };

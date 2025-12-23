@@ -147,6 +147,38 @@ export const leadCreateAndUpdateDescription: INodeProperties[] = [
 		description: 'Nationality of the company',
 	},
 	{
+		displayName: 'Canal De Origem',
+		name: 'originChannelIdCreateUpdate',
+		type: 'options',
+		displayOptions: {
+			show: {
+				resource: ['lead'],
+				operation: ['createAndUpdate'],
+			},
+		},
+		typeOptions: {
+			loadOptionsMethod: 'getOriginChannels',
+		},
+		default: '',
+		description: 'Canal de origem do lead. Escolha na lista ou informe um ID usando expressão.',
+	},
+	{
+		displayName: 'Canal De Aquisição',
+		name: 'acquisitionChannelIdCreateUpdate',
+		type: 'options',
+		displayOptions: {
+			show: {
+				resource: ['lead'],
+				operation: ['createAndUpdate'],
+			},
+		},
+		typeOptions: {
+			loadOptionsMethod: 'getAcquisitionChannels',
+		},
+		default: '',
+		description: 'Canal de aquisição do lead. Escolha na lista ou informe um ID usando expressão.',
+	},
+	{
 		displayName: 'UTM Source',
 		name: 'utmSourceCreateUpdate',
 		type: 'string',

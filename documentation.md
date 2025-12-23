@@ -149,6 +149,8 @@ Cria um **novo lead** no CRM.
 
 **Campos opcionais:**
 
+- **Canal de Origem** (dropdown) - Carregado das credenciais (`originChannels`)
+- **Canal de Aquisição** (dropdown) - Carregado das credenciais (`acquisitionChannels`)
 - Email
 - Phone
 - Tax ID (CPF/CNPJ)
@@ -184,6 +186,8 @@ Cria um lead e **atualiza campos customizados** em uma única operação.
 **Campos opcionais:**
 
 - Todos os campos de Create Lead (Email, Phone, Tax ID, Company Nationality, UTMs, Source Page)
+- **Canal de Origem** (dropdown) - Carregado das credenciais (`originChannels`)
+- **Canal de Aquisição** (dropdown) - Carregado das credenciais (`acquisitionChannels`)
 - **Custom Fields** - Adicione quantos campos customizados quiser através do botão "Add Field"
 
 **Como adicionar campos customizados:**
@@ -218,7 +222,8 @@ Atualiza **campos principais** de um lead existente. Apenas campos preenchidos s
 - Tax ID
 - Owner (dropdown)
 - Tenant (dropdown)
-- Channel
+- Canal de Origem (dropdown) - Carregado das credenciais (`originChannels`)
+- Canal de Aquisição (dropdown) - Carregado das credenciais (`acquisitionChannels`)
 - UTM Source
 - UTM Campaign
 - UTM Content
