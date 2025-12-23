@@ -117,6 +117,24 @@ class CrmApi {
                 description: 'JSON array containing tenant configurations with their IDs and display names',
                 placeholder: '[\n  {\n    "id": "tenant-uuid-1",\n    "name": "Tenant A"\n  },\n  {\n    "id": "tenant-uuid-2",\n    "name": "Tenant B"\n  }\n]',
             },
+            {
+                displayName: 'Origin Channels (JSON)',
+                name: 'originChannels',
+                type: 'json',
+                default: '[]',
+                required: true,
+                description: 'JSON array with origin channels (id and name) used in dropdowns',
+                placeholder: '[\n  {\n    "id": "origin-uuid-1",\n    "name": "Facebook"\n  },\n  {\n    "id": "origin-uuid-2",\n    "name": "Google"\n  }\n]',
+            },
+            {
+                displayName: 'Acquisition Channels (JSON)',
+                name: 'acquisitionChannels',
+                type: 'json',
+                default: '[]',
+                required: true,
+                description: 'JSON array with acquisition channels (id and name) used in dropdowns',
+                placeholder: '[\n  {\n    "id": "acq-uuid-1",\n    "name": "ABM"\n  },\n  {\n    "id": "acq-uuid-2",\n    "name": "Leadbroker"\n  }\n]',
+            },
         ];
         this.authenticate = {
             type: 'generic',
